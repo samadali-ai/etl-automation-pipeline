@@ -1,11 +1,9 @@
-# .github/workflows/etl_pipeline.yml
+name: ETL Pipeline
 
-name: ETL Pipeline Automation
-
-on:
+on: 
   push:
     branches:
-      - main  # Trigger the workflow on pushes to the main branch
+      - main
 
 jobs:
   run-etl:
@@ -18,17 +16,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install pandas  # Add this line to install pandas
+        pip install -r requirements.txt  # If you have other dependencies
 
     - name: Run ETL script
-      run: |
-        python etl.py
-
-    - name: Show transformed data
-      run: |
-        cat data/transformed_data.csv
+      run: python etl.py
